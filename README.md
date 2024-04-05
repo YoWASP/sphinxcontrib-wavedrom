@@ -30,6 +30,18 @@ This extension provides only one directive, `wavedrom`. Its argument is the base
 Additional examples are available [in the test suite](/test/index.rst), as well as the corresponding [rendered output](https://yowasp.github.io/sphinxcontrib-wavedrom/).
 
 
+Configuration
+-------------
+
+The extension recognizes these configuration variables in `conf.py`:
+
+```py
+# Default skin for waveforms. If `json["config"]["skin"]` is not set in the directive,
+# it defaults to the value of this variable. Does not affect bit fields or circuits.
+yowasp_wavedrom_skin = "default"
+```
+
+
 License
 -------
 
