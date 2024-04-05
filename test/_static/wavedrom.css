@@ -1,0 +1,2 @@
+body[data-theme="light"] { img { color-scheme: light; } }
+body[data-theme="dark"] { img { color-scheme: dark; } }

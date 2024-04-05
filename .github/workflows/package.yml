@@ -1,0 +1,58 @@
+on: [push, pull_request]
+name: Test & publish
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v4
+      - name: Install dependencies
+        run: pdm install --dev
+      - name: Run tests
+        run: pdm test
+      - name: Build Python artifact
+        run: pdm build
+      - name: Upload Python artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-pypi
+          path: dist/
+      - name: Publish test documentation
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          folder: test/_out/
+  check: # group all `test (*)` workflows into one for the required status check
+    needs: test
+    if: ${{ always() && !contains(needs.*.result, 'cancelled') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: ${{ contains(needs.*.result, 'failure') && 'false' || 'true' }}
+  publish:
+    needs: check
+    if: ${{ github.event_name == 'push' && github.repository == 'YoWASP/sphinxcontrib-wavedrom' }}
+    runs-on: ubuntu-latest
+    environment: publish
+    permissions:
+      id-token: write
+    steps:
+    - name: Download Python artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist-pypi
+        path: dist-tree/
+    - name: Prepare artifacts for publishing
+      run: |
+        mkdir dist
+        find dist-tree -name '*.whl' -exec mv {} dist/ \;
+    - name: Publish package to Test PyPI
+      if: ${{ github.event.ref == 'refs/heads/main' }}
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+    - name: Publish package to PyPI
+      if: ${{ startsWith(github.event.ref, 'refs/tags/') }}
+      uses: pypa/gh-action-pypi-publish@release/v1

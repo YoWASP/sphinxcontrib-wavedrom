@@ -1,0 +1,33 @@
+[tool.pdm.version]
+source = "scm"
+
+[project]
+dynamic = ["version"]
+
+name = "sphinxcontrib-yowasp-wavedrom"
+description = "A Sphinx extension for embedding WaveDrom diagrams"
+readme = "README.md"
+authors = [{name = "Catherine", email = "whitequark@whitequark.org"}]
+license = {text = "MIT"}
+classifiers = [
+	"License :: OSI Approved :: MIT License"
+]
+
+requires-python = "~=3.8"
+dependencies = [
+    "Sphinx~=7.1",
+    "yowasp_wavedrom>=3.5.0.4",
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.build]
+includes = ["sphinxcontrib/"] # required for a namespace package
+
+[tool.pdm.dev-dependencies]
+test = ["furo"]
+
+[tool.pdm.scripts]
+test = "sphinx-build -aE -b html test test/_out"
