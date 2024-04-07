@@ -16,7 +16,7 @@ WaveJSON diagram descriptions are always converted into SVG files; only the HTML
 Usage
 -----
 
-This extension provides only one directive, `wavedrom`. Its argument is the base name, without extension, of the generated image file (in `<output directory>/_images/`; which must be unique in the entire document tree), and its contents is the raw WaveJSON file that can be copied to or from the editor. For example:
+This extension provides only one directive, `wavedrom`. Its argument is the base name, without extension, of the generated image file (in `<output directory>/<document directory>/_images/`; which must be unique for that document directory), and its contents is the raw WaveJSON file that can be copied to or from the editor. For example:
 
 ```rst
 .. wavedrom:: clk_and_data
