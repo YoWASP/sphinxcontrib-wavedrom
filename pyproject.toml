@@ -18,7 +18,7 @@ requires-python = "~=3.8"
 dependencies = [
     "importlib_resources; python_version<'3.9'",
     "Sphinx~=7.1",
-    "yowasp-wavedrom>=3.5.0.6",
+    "yowasp-wavedrom>=3.5.0.7",
 ]
 
 [build-system]
