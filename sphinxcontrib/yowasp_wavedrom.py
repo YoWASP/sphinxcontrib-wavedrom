@@ -1,9 +1,10 @@
 import re
 import json
-from pathlib import Path
+from pathlib import Path, PosixPath
 from docutils.parsers.rst import Directive
 from docutils import nodes
 import sphinx.application
+import sphinx.writers.html5
 import yowasp_wavedrom
 
 
@@ -40,7 +41,7 @@ class wavedrom_diagram(nodes.General, nodes.Inline, nodes.Element):
     pass
 
 
-def html_visit_wavedrom_diagram(self, node):
+def html_visit_wavedrom_diagram(self: sphinx.writers.html5.HTML5Translator, node: wavedrom_diagram):
     basename: str = node["name"]
     wavedrom_loc: str = node["loc"]
     wavedrom_src: dict = node["src"]
@@ -65,7 +66,15 @@ def html_visit_wavedrom_diagram(self, node):
     # significantly different behavior: duplicate IDs result in broken rendering, text can be
     # selected, media queries can't be overridden with a `color-scheme` CSS attribute for themes
     # that have a dark/light toggle via JS, etc.
-    pathname = Path(self.builder.outdir) / self.builder.imagedir / f'{basename}.svg'
+    pathname = Path(self.builder.outdir).joinpath(
+        # Note that for documents in subdirectories, the image directory is placed within that
+        # subdirectory. The other option would be to use enough `../` to locate the top-level
+        # image directory; using leading `/` in the `<img>` tag isn't feasible since that would
+        # break on `file:///` URLs.
+        PosixPath(self.builder.current_docname).parent,
+        self.builder.imagedir,
+        f'{basename}.svg'
+    )
     pathname.parent.mkdir(parents=True, exist_ok=True)
     pathname.write_text(wavedrom_svg)
 
