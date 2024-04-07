@@ -84,3 +84,10 @@ Circuit diagrams
             ]
         ]
     }
+
+Subdocument
+-----------
+
+.. toctree::
+
+    subdir/index
