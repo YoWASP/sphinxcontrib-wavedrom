@@ -1,2 +1,2 @@
-body[data-theme="light"] { img { color-scheme: light; } }
-body[data-theme="dark"] { img { color-scheme: dark; } }
+body[data-theme="light"] { img.wavedrom { color-scheme: light; } }
+body[data-theme="dark"] { img.wavedrom { color-scheme: dark; } }
