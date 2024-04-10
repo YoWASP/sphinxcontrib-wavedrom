@@ -61,6 +61,14 @@ def html_visit_wavedrom_diagram(self: sphinx.writers.html5.HTML5Translator, node
             f'<pre>/!\ Could not render WaveDrom diagram: {self.encode(error)}</pre>'
             f'</em>')
         raise nodes.SkipNode
+
+    # Determine CSS class of the image.
+    if "signal" in wavedrom_src:
+        css_class = "wavedrom wavedrom-signal"
+    if "reg" in wavedrom_src:
+        css_class = "wavedrom wavedrom-reg"
+    if "assign" in wavedrom_src:
+        css_class = "wavedrom wavedrom-assign"
     
     # Write the SVG to output directory. This is necessary because inlining it into the HTML has
     # significantly different behavior: duplicate IDs result in broken rendering, text can be
@@ -80,6 +88,7 @@ def html_visit_wavedrom_diagram(self: sphinx.writers.html5.HTML5Translator, node
 
     # Reference the SVG in the HTML document.
     self.body.append(f'<img src="{self.builder.imagedir}/{basename}.svg" '
+        f'class="{self.encode(css_class)}" '
         f'alt="{self.encode(node["src"])}">')
     raise nodes.SkipNode
 
