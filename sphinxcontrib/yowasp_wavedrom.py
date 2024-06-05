@@ -1,6 +1,6 @@
 import re
 import json
-from pathlib import Path, PosixPath
+from pathlib import Path
 from docutils.parsers.rst import Directive
 from docutils import nodes
 import sphinx.application
@@ -79,7 +79,7 @@ def html_visit_wavedrom_diagram(self: sphinx.writers.html5.HTML5Translator, node
         # subdirectory. The other option would be to use enough `../` to locate the top-level
         # image directory; using leading `/` in the `<img>` tag isn't feasible since that would
         # break on `file:///` URLs.
-        PosixPath(self.builder.current_docname).parent,
+        Path(self.builder.current_docname).parent,
         self.builder.imagedir,
         f'{basename}.svg'
     )
