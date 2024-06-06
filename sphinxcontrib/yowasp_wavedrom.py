@@ -1,5 +1,5 @@
 import re
-import json
+import json5 as json
 from pathlib import Path
 from docutils.parsers.rst import Directive
 from docutils import nodes
@@ -69,7 +69,7 @@ def html_visit_wavedrom_diagram(self: sphinx.writers.html5.HTML5Translator, node
         css_class = "wavedrom wavedrom-reg"
     if "assign" in wavedrom_src:
         css_class = "wavedrom wavedrom-assign"
-    
+
     # Write the SVG to output directory. This is necessary because inlining it into the HTML has
     # significantly different behavior: duplicate IDs result in broken rendering, text can be
     # selected, media queries can't be overridden with a `color-scheme` CSS attribute for themes

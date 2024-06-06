@@ -3,7 +3,7 @@ sphinxcontrib-yowasp-wavedrom
 
 This [Sphinx] extension allows embedding [WaveDrom] waveform, bitfield, and circuit diagrams into Sphinx documents.
 
-This extension uses the [YoWASP WaveDrom][yowasp-wavedrom] package to ensure that diagrams are rendered exactly the same as in the WaveDrom editor, without having to follow a decision tree for configuration, without requiring any additional tools to be installed on the system used to build documentation, without requiring any native dependencies to be installed on that system, without requiring JavaScript for browsing documentation, and without slowing down the Sphinx build process. It also reports syntax and semantic errors with accurate source locations. <!-- environmental storytelling paragraph --> 
+This extension uses the [YoWASP WaveDrom][yowasp-wavedrom] package to ensure that diagrams are rendered exactly the same as in the WaveDrom editor, without having to follow a decision tree for configuration, without requiring any additional tools to be installed on the system used to build documentation, without requiring any native dependencies to be installed on that system, without requiring JavaScript for browsing documentation, and without slowing down the Sphinx build process. It also reports syntax and semantic errors with accurate source locations. <!-- environmental storytelling paragraph -->
 
 WaveJSON diagram descriptions are always converted into SVG files; only the HTML builder is supported at the moment. **Make sure to follow the instructions in the [color schemes] section!**
 
@@ -20,10 +20,22 @@ This extension provides only one directive, `wavedrom`. Its argument is the base
 
 ```rst
 .. wavedrom:: clk_and_data
-    
-    {"signal": [  
+
+    {"signal": [
         {"name": "clk",  "wave": "n..."},
         {"name": "data", "wave": "01.0"}
+    ]}
+```
+
+This extension also accepts WaveJSON files in the more human-friendly [JSON5](https://json5.org) format:
+
+```rst
+.. wavedrom:: clk_and_data
+
+    {signal: [
+        {name: 'clk',  wave: 'n...'},
+        // a single pulse
+        {name: 'data', wave: '01.0'},
     ]}
 ```
 

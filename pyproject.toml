@@ -19,6 +19,7 @@ dependencies = [
     "importlib_resources; python_version<'3.9'",
     "Sphinx~=7.1",
     "yowasp-wavedrom>=3.5.0.8",
+    "json5~=0.9", # trailing commas
 ]
 
 [build-system]
