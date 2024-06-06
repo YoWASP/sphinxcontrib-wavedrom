@@ -8,34 +8,41 @@ Waveform diagrams
 default:
 
 .. wavedrom:: skin_default
-    
-    {"signal": [  
+
+    {"signal": [
         {"name": "clk",  "wave": "n..."},
         {"name": "data", "wave": "01.0"}
     ]}
 
+.. test trailing commas
+
 light:
 
 .. wavedrom:: skin_light
-    
+
     {
-        "signal": [  
+        "signal": [
             {"name": "clk",  "wave": "p..."},
-            {"name": "data", "wave": "01.0"}
+            {"name": "data", "wave": "01.0"},
         ],
-        "config": {"skin": "light"}
+        "config": {"skin": "light"},
     }
+
+.. test ECMAScript object keys
+.. test single quoted strings
+.. test comments
 
 dark:
 
 .. wavedrom:: skin_dark
-    
+
     {
-        "signal": [  
-            {"name": "clk",  "wave": "p..."},
-            {"name": "data", "wave": "01.0"}
+        signal: [
+            {name: 'clk',  wave: 'p...'},
+            // one pulse
+            {name: 'data', wave: '01.0'}
         ],
-        "config": {"skin": "dark"}
+        config: {skin: 'dark'}
     }
 
 narrow:
@@ -44,9 +51,9 @@ narrow:
     test nested base names
 
 .. wavedrom:: extra/skin_narrow
-    
+
     {
-        "signal": [  
+        "signal": [
             {"name": "clk",  "wave": "n..."},
             {"name": "data", "wave": "01.0"}
         ],
@@ -76,9 +83,9 @@ Circuit diagrams
 
     {
         "assign": [
-            ["out", 
-                ["|", 
-                    ["&", ["~", "a"], "b"], 
+            ["out",
+                ["|",
+                    ["&", ["~", "a"], "b"],
                     ["&", ["~", "b"], "a"]
                 ]
             ]
