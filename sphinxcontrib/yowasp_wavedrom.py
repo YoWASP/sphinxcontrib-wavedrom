@@ -1,5 +1,5 @@
 import re
-import json5 as json
+import json5
 from pathlib import Path
 from docutils.parsers.rst import Directive
 from docutils import nodes
@@ -19,17 +19,14 @@ class WaveDromDirective(Directive):
         name, = self.arguments
 
         # This is a really weird way to extract the payload of a directive, but it keeps accurate
-        # line and more importantly column numbers within `JSONDecodeError`.
+        # line and more importantly column numbers within JSON decoder errors.
         payload = re.sub(r"^..\s+wavedrom\s*::.+?\n", "\n", self.block_text)
 
         # Parse and validate WaveJSON source.
         try:
-            wavedrom_src = json.loads(payload)
-        except json.decoder.JSONDecodeError as error:
-            return [self.reporter.error(
-                f"line {error.lineno + self.lineno - 1}, column {error.colno}: "
-                f"JSON: {error.msg}"
-            )]
+            wavedrom_src = json5.loads(payload, allow_duplicate_keys=False)
+        except ValueError as error:
+            return [self.reporter.error(f"WaveJSON: {error}")]
 
         node = wavedrom_diagram(self.block_text, name=name, src=wavedrom_src,
             loc=f'{self.state.document["source"]}:{self.lineno}')
