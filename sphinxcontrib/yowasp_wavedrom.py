@@ -55,7 +55,7 @@ def html_visit_wavedrom_diagram(self: sphinx.writers.html5.HTML5Translator, node
         sphinx.application.logger.error(
             f'Could not render WaveDrom diagram at {wavedrom_loc}: {error}')
         self.body.append(f'<em style="color:red;font-weight:bold">'
-            f'<pre>/!\ Could not render WaveDrom diagram: {self.encode(error)}</pre>'
+            f'<pre>/!\\ Could not render WaveDrom diagram: {self.encode(error)}</pre>'
             f'</em>')
         raise nodes.SkipNode
 
