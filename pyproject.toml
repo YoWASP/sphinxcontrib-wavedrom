@@ -23,8 +23,7 @@ dependencies = [
 ]
 
 [build-system]
-# https://github.com/pdm-project/pdm-backend/pull/217#issuecomment-2032623648
-requires = ["pdm-backend @ git+https://github.com/pdm-project/pdm-backend"]
+requires = ["pdm-backend~=2.3.0"]
 build-backend = "pdm.backend"
 
 [tool.pdm.build]
