@@ -8,6 +8,7 @@ __pycache__/
 /.pdm-python
 /.venv
 /pdm.lock
+.python-version
 
 # tests
 /test/_out

@@ -78,6 +78,29 @@ yowasp_wavedrom_skin = "default"
 ```
 
 
+Development
+-----------
+
+This project uses [PDM](https://pdm-project.org/) for package management. The package supports Python 3.10+ and Sphinx 7.1 through 9.x.
+
+Since Sphinx 9 requires Python 3.11+ while the package supports Python 3.10+, the lockfile must cover multiple Python version ranges:
+
+```bash
+# Lock for Python 3.10 (gets Sphinx 8.x max)
+pdm lock --python ">=3.10,<3.11"
+
+# Append lock for Python 3.11+ (gets Sphinx 9.x)
+pdm lock --python ">=3.11" --append
+```
+
+To install and run tests:
+
+```bash
+pdm install --dev
+pdm test
+```
+
+
 License
 -------
 
